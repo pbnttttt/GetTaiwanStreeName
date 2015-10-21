@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Microsoft.VisualBasic;
 
 namespace GetTaiwanStreetName
 {
@@ -110,7 +111,7 @@ namespace GetTaiwanStreetName
         protected internal static List<string> ParserAddress(string addr)
         {
             XElement root = XElement.Parse(addr, LoadOptions.PreserveWhitespace);
-            return root.Descendants("array0").Select(x => x.Value).ToList();
+            return root.Descendants("array0").Select(x => Strings.StrConv(x.Value, VbStrConv.Narrow, 0)).ToList();
         }
     }
 }

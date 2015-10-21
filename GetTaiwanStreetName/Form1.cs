@@ -84,7 +84,6 @@ namespace GetTaiwanStreetName
 
         private async void button1_Click(object sender, EventArgs e)
         {
-
             Stream myStream;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "csv files (*.csv)|*.csv";
@@ -101,7 +100,9 @@ namespace GetTaiwanStreetName
                     #region GetRemoteData
                     foreach (DataRow cityRow in cityDT.Rows)
                     {
-                        DataRow[] cityareaRows = cityareaDT.Select("CityId=" + cityRow.Field<int>("Id").ToString());
+                        string CityId = cityRow.Field<int>("Id").ToString();
+                        DataRow[] cityareaRows = cityareaDT.Select("CityId=" + CityId);
+                        int i = 1;
                         foreach (var cityareaRow in cityareaRows)
                         {
                             string city = cityRow.Field<string>("City");
@@ -109,24 +110,26 @@ namespace GetTaiwanStreetName
                             string result = await Utilities.GetAddress(city, cityarea);
                             List<string> address = Utilities.ParserAddress(result);
 
+                            
                             foreach (var addr in address)
                             {
                                 OutputAddress oa = new OutputAddress
                                 {
-                                    City = city,
-                                    CityArea = cityarea,
+                                    City = string.Format("{0:000}_{1}", Convert.ToInt16(CityId), city),
+                                    CityArea = cityarea, //string.Format("{0:000}_{1}", i, cityarea),
                                     Address = addr
                                 };
                                 bag.Add(oa);
+                                i++;
                             }
                         }
                     }
                     #endregion
 
                     StringBuilder sb = new StringBuilder();
-                    foreach (var item in bag.OrderBy(x => x.City).ThenBy(x => x.CityArea))
+                    foreach (var item in bag.Reverse())
                     {
-                        sb.AppendFormat("{0},{1},{2}\r\n", item.City, item.City, item.Address);
+                        sb.AppendFormat("{0},{1},{2}\r\n", item.City, item.CityArea, item.Address);
                     }
                     string output = sb.ToString();
 
