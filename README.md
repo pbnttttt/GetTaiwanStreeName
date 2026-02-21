@@ -1,57 +1,57 @@
 # GetTaiwanStreetName
 
-GetTaiwanStreetName is a Windows Forms application designed to fetch, display, and export street names in Taiwan. Users can navigate through cities and their respective areas to find specific street information.
+GetTaiwanStreetName 是一個 Windows Forms 應用程式，用於擷取、顯示並匯出台灣的街道名稱。使用者可以瀏覽各縣市及其下轄區域，以查詢特定的街道資訊。
 
-## How to Use
+## 使用方式
 
-The application interface is organized into tabs for different functionalities:
+應用程式介面以分頁（Tab）方式組織不同功能：
 
-*   **View Cities (Tab 1):** Displays a list of cities.
-*   **View City Areas (Tab 2):** Allows you to select a city from a dropdown menu, then displays the areas within that city.
-*   **Find Streets (Tab 3):** Allows you to select a city and a specific city area from dropdown menus. The application will then display the street names within the selected area.
+*   **檢視縣市（第 1 頁）：** 顯示縣市清單。
+*   **檢視行政區（第 2 頁）：** 從下拉選單選擇縣市後，顯示該縣市下的行政區。
+*   **查詢街道（第 3 頁）：** 從下拉選單選擇縣市與行政區後，顯示該區域內的街道名稱。
 
-### Exporting Data
+### 匯出資料
 
-The application allows you to export all the street data into a JSON file.
-- Click the "輸出資料" (Export Data) button.
-- A folder browser dialog will appear. Select the desired location where you want to save the `taiwan.json` file.
-- The application will fetch all city, city area, and street data and save it as `taiwan.json` in the chosen directory.
+本應用程式可將所有街道資料匯出為 JSON 檔案。
+- 點擊「輸出資料」按鈕。
+- 出現資料夾瀏覽對話框後，選擇欲儲存 `taiwan.json` 的目標位置。
+- 應用程式將擷取所有縣市、行政區及街道資料，並以 `taiwan.json` 的名稱儲存至指定目錄。
 
-## Data Source
+## 資料來源
 
-The application retrieves data from Taiwan's official postal service website:
+本應用程式從台灣官方郵政服務網站擷取資料：
 
-*   **City and City Area Data:** Scraped from [http://www.post.gov.tw/post/internet/Postal/index.jsp?ID=208](http://www.post.gov.tw/post/internet/Postal/index.jsp?ID=208)
-*   **Street Name Data:** Fetched from [http://www.post.gov.tw/post/internet/Postal/streetNameData.jsp](http://www.post.gov.tw/post/internet/Postal/streetNameData.jsp) via a POST request.
+*   **縣市與行政區資料：** 抓取自 [http://www.post.gov.tw/post/internet/Postal/index.jsp?ID=208](http://www.post.gov.tw/post/internet/Postal/index.jsp?ID=208)
+*   **街道名稱資料：** 透過 POST 請求從 [http://www.post.gov.tw/post/internet/Postal/streetNameData.jsp](http://www.post.gov.tw/post/internet/Postal/streetNameData.jsp) 取得。
 
-**Note:** The reliability of the data depends on the availability and structure of these external web pages.
+**注意：** 資料的正確性取決於上述外部網頁的可用性與結構。
 
-## Building and Running the Project
+## 建置與執行專案
 
-### Prerequisites
-*   Microsoft Visual Studio (Tested with Visual Studio 2022, but older versions compatible with .NET Framework 4.7.2 or later should work)
-*   .NET Framework 4.7.2 (or a later compatible version)
+### 事前準備
+*   Microsoft Visual Studio（已於 Visual Studio 2022 測試，支援 .NET Framework 4.7.2 或更新版本的舊版本亦可使用）
+*   .NET Framework 4.7.2（或更新的相容版本）
 
-### Steps
-1.  **Clone the repository:**
+### 步驟
+1.  **複製儲存庫：**
     ```bash
     git clone <repository_url>
     ```
-    (Replace `<repository_url>` with the actual URL of this repository)
-2.  **Open the solution:**
-    Open the `Max.sln` file in Visual Studio.
-3.  **Restore NuGet Packages:**
-    Visual Studio should automatically restore the NuGet packages listed in `packages.config` (e.g., Newtonsoft.Json, HtmlAgilityPack). If not, you might need to do it manually through the NuGet Package Manager:
-    *   Right-click on the solution in Solution Explorer.
-    *   Select "Manage NuGet Packages for Solution..."
-    *   Go to the "Restore" or "Installed" tab and ensure all packages are restored/installed.
-4.  **Build the solution:**
-    *   From the Visual Studio menu, select "Build" > "Build Solution" (or press `Ctrl+Shift+B`).
-5.  **Run the application:**
-    *   From the Visual Studio menu, select "Debug" > "Start Debugging" (or press `F5`).
-    *   Alternatively, you can find the compiled executable in the `GetTaiwanStreetName/bin/Debug` (or `GetTaiwanStreetName/bin/Release`) folder and run it directly.
+    （將 `<repository_url>` 替換為本儲存庫的實際 URL）
+2.  **開啟方案：**
+    以 Visual Studio 開啟 `Max.sln` 檔案。
+3.  **還原 NuGet 套件：**
+    Visual Studio 通常會自動還原 `packages.config` 中列出的 NuGet 套件（如 Newtonsoft.Json、HtmlAgilityPack）。若未自動還原，可透過 NuGet 套件管理員手動執行：
+    *   在方案總管中，對方案按右鍵。
+    *   選擇「管理方案的 NuGet 套件...」。
+    *   前往「還原」或「已安裝」頁籤，確認所有套件皆已還原/安裝。
+4.  **建置方案：**
+    *   從 Visual Studio 選單選擇「建置」>「建置方案」（或按 `Ctrl+Shift+B`）。
+5.  **執行應用程式：**
+    *   從 Visual Studio 選單選擇「偵錯」>「開始偵錯」（或按 `F5`）。
+    *   或者，也可在 `GetTaiwanStreetName/bin/Debug`（或 `GetTaiwanStreetName/bin/Release`）資料夾中找到編譯後的執行檔並直接執行。
 
-### Dependencies
-The project relies on the following NuGet packages:
-*   **Newtonsoft.Json:** For working with JSON data (used in exporting).
-*   **HtmlAgilityPack:** For parsing HTML content (used in web scraping).
+### 相依套件
+本專案依賴以下 NuGet 套件：
+*   **Newtonsoft.Json：** 用於處理 JSON 資料（匯出功能使用）。
+*   **HtmlAgilityPack：** 用於解析 HTML 內容（網頁抓取使用）。
